@@ -720,6 +720,7 @@ module Homebrew
         end
         if OS.linux?
           test "brew", "linkage", formula_name
+          test "brew", "linkage", "--reverse", formula_name
           test "brew", "linkage", "--test", formula_name
         end
         shared_test_args = ["--verbose"]
