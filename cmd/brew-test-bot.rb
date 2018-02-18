@@ -722,6 +722,11 @@ module Homebrew
         end
       end
 
+      if ENV["HOMEBREW_VERBOSE_USING_DOTS"]
+        $stderr.print "."
+        $stderr.flush
+      end
+
       if formula.devel && !ARGV.include?("--HEAD")
         deps |= formula.devel.deps.to_a.reject(&:optional?)
         reqs |= formula.devel.requirements.to_a.reject(&:optional?)
@@ -773,6 +778,11 @@ module Homebrew
       dependencies = Utils.popen_read("brew", "deps", "--include-build", formula_name).split("\n")
       installed_dependencies = installed & dependencies
 
+      if ENV["HOMEBREW_VERBOSE_USING_DOTS"]
+        $stderr.print "."
+        $stderr.flush
+      end
+
       unlink_formulae.uniq.each do |name|
         unlink_formula = Formulary.factory(name)
         next unless unlink_formula.installed?
@@ -794,6 +804,11 @@ module Homebrew
       runtime_dependencies = Utils.popen_read("brew", "deps", formula_name).split("\n")
       build_dependencies = dependencies - runtime_dependencies
       @unchanged_build_dependencies = build_dependencies - @formulae
+
+      if ENV["HOMEBREW_VERBOSE_USING_DOTS"]
+        $stderr.print "."
+        $stderr.flush
+      end
 
       args = ["--recursive"] unless OS.linux?
       dependents = Utils.popen_read("brew", "uses", *args, formula_name).split("\n")
