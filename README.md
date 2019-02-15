@@ -1,4 +1,4 @@
-# LEGACY Homebrew Test Bot
+# Legacy Linuxbrew Test Bot
 
 Tests the full lifecycle of a Homebrew change (for Linuxbrew).
 
